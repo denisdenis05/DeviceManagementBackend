@@ -9,4 +9,6 @@ public interface IDevicesService
     Task AddDeviceAsync(DeviceDto device);
     Task EditDeviceAsync(DeviceDto device);
     Task DeleteDeviceAsync(string identifier);
+    Task AssignDeviceAsync(string deviceIdentifier, string userIdentifier, string userEmail);
+    Task UnassignDeviceAsync(string deviceIdentifier, string userIdentifier);
 }

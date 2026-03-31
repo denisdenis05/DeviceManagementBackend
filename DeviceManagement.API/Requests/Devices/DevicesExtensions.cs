@@ -31,4 +31,16 @@ public static class DevicesExtensions
             RamAmount = request.RamAmount,
             Description = request.Description
         };
+
+    public static DeviceDto ToAssignDeviceDto(this AssignDeviceRequest request, DeviceDto existingDevice)
+    {
+        existingDevice.AssignedUserId = request.UserIdentifier;
+        return existingDevice;
+    }
+
+    public static DeviceDto ToUnassignDeviceDto(this UnassignDeviceRequest request, DeviceDto existingDevice)
+    {
+        existingDevice.AssignedUserId = string.Empty;
+        return existingDevice;
+    }
 }

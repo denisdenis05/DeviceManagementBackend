@@ -81,4 +81,47 @@ public class DevicesController : ControllerBase
             return BadRequest();
         }
     }
+
+    [HttpPost(ApiConstants.AssignDeviceEndpoint)]
+    public async Task<IActionResult> AssignDeviceRequest([FromBody] AssignDeviceRequest request)
+    {
+        try
+        {
+            var userIdentifier = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            var userEmail = User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value;
+            
+            if (string.IsNullOrEmpty(userIdentifier) || string.IsNullOrEmpty(userEmail))
+            {
+                return Unauthorized();
+            }
+
+            await _devicesService.AssignDeviceAsync(request.DeviceIdentifier, userIdentifier, userEmail);
+            return Ok();
+        }
+        catch
+        {
+            return BadRequest();
+        }
+    }
+
+    [HttpPost(ApiConstants.UnassignDeviceEndpoint)]
+    public async Task<IActionResult> UnassignDeviceRequest([FromBody] UnassignDeviceRequest request)
+    {
+        try
+        {
+            var userIdentifier = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+            if (string.IsNullOrEmpty(userIdentifier))
+            {
+                return Unauthorized();
+            }
+
+            await _devicesService.UnassignDeviceAsync(request.DeviceIdentifier, userIdentifier);
+            return Ok();
+        }
+        catch
+        {
+            return BadRequest();
+        }
+    }
 }

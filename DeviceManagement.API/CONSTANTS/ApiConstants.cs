@@ -9,4 +9,6 @@ public static class ApiConstants
 
     public const string AuthRegisterEndpoint = "register";
     public const string AuthLoginEndpoint = "login";
+    public const string AssignDeviceEndpoint = "assign";
+    public const string UnassignDeviceEndpoint = "unassign";
 }

@@ -36,4 +36,32 @@ public class DevicesService : IDevicesService
     {
         await _devicesRepository.DeleteDeviceAsync(identifier);
     }
+
+    public async Task AssignDeviceAsync(string deviceIdentifier, string userIdentifier, string userEmail)
+    {
+        var device = await _devicesRepository.RetrieveDeviceByIdAsync(deviceIdentifier);
+        
+        if (!string.IsNullOrEmpty(device.AssignedUserId))
+        {
+            throw new Exception("Device is already assigned.");
+        }
+
+        device.AssignedUserId = userIdentifier;
+        device.AssignedUserEmail = userEmail;
+        await _devicesRepository.UpdateDeviceAsync(device);
+    }
+
+    public async Task UnassignDeviceAsync(string deviceIdentifier, string userIdentifier)
+    {
+        var device = await _devicesRepository.RetrieveDeviceByIdAsync(deviceIdentifier);
+        
+        if (device.AssignedUserId != userIdentifier)
+        {
+            throw new Exception("You are not authorized to unassign this device.");
+        }
+
+        device.AssignedUserId = string.Empty;
+        device.AssignedUserEmail = string.Empty;
+        await _devicesRepository.UpdateDeviceAsync(device);
+    }
 }
