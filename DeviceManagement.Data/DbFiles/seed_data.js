@@ -27,3 +27,12 @@ if (hasNoData) {
         }
     ]);
 }
+
+const usersCollectionName = "Users";
+const initialUsersCount = db[usersCollectionName].countDocuments();
+if (initialUsersCount === 0) {
+    db[usersCollectionName].insertOne({
+        Email: "admin@admin.com",
+        PasswordHash: "$2a$11$0wO0M1iK./AetqNofNntUetK5L6SGEW31pBohPTrXb8M4X368L1V2" 
+    });
+}

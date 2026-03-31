@@ -23,3 +23,20 @@ if (!collectionExists) {
         }
     });
 }
+
+const usersCollectionName = "Users";
+const usersCollectionExists = existingCollections.includes(usersCollectionName);
+if (!usersCollectionExists) {
+    db.createCollection(usersCollectionName, {
+        validator: {
+            $jsonSchema: {
+                bsonType: "object",
+                required: ["Email", "PasswordHash"],
+                properties: {
+                    Email: { bsonType: "string" },
+                    PasswordHash: { bsonType: "string" }
+                }
+            }
+        }
+    });
+}

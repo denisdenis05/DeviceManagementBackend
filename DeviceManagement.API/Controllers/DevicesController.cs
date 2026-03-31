@@ -3,9 +3,11 @@ using DeviceManagement.Data.Models.Devices;
 using DeviceManagement.Business.Services.Devices;
 using DeviceManagement.API.CONSTANTS;
 using DeviceManagement.API.Requests.Devices;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DeviceManagement.API.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("[controller]")]
 public class DevicesController : ControllerBase

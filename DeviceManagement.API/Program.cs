@@ -1,6 +1,9 @@
 using MongoDB.Driver;
 using DeviceManagement.Business.Services;
 using DeviceManagement.Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var webApplicationBuilder = WebApplication.CreateBuilder(args);
 
@@ -27,7 +30,26 @@ var mongoClient = new MongoClient(connectionString);
 
 webApplicationBuilder.Services.AddSingleton<IMongoClient>(mongoClient);
 webApplicationBuilder.Services.AddScoped<IDevicesRepository, DeviceRepository>();
+webApplicationBuilder.Services.AddScoped<IAuthRepository, AuthRepository>();
 webApplicationBuilder.Services.AddApplicationServices();
+
+var jwtSettings = webApplicationBuilder.Configuration.GetSection("JwtSettings");
+var key = Encoding.ASCII.GetBytes(jwtSettings["Key"]!);
+
+webApplicationBuilder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(key),
+            ValidateIssuer = true,
+            ValidIssuer = jwtSettings["Issuer"],
+            ValidateAudience = true,
+            ValidAudience = jwtSettings["Audience"],
+            ValidateLifetime = true
+        };
+    });
 
 webApplicationBuilder.Services.AddScoped(sp =>
 {
@@ -42,6 +64,7 @@ webApplication.UseSwaggerUI();
 
 webApplication.UseHttpsRedirection();
 webApplication.UseCors("AllowAll");
+webApplication.UseAuthentication();
 webApplication.UseAuthorization();
 webApplication.MapControllers();
 

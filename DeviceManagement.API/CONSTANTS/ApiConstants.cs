@@ -6,4 +6,7 @@ public static class ApiConstants
     public const string EditEndpoint = "edit";
     public const string GetDeviceEndpoint = "get-device";
     public const string DeleteEndpoint = "delete";
+
+    public const string AuthRegisterEndpoint = "register";
+    public const string AuthLoginEndpoint = "login";
 }
