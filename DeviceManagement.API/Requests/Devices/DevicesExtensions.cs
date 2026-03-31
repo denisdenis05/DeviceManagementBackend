@@ -5,7 +5,20 @@ namespace DeviceManagement.API.Requests.Devices;
 
 public static class DevicesExtensions
 {
-    public static DeviceDto ToDeviceDto(this DeviceRequest request) =>
+    public static DeviceDto ToAddDeviceDto(this AddDeviceRequest request) =>
+        new DeviceDto
+        {
+            Name = request.Name,
+            Manufacturer = request.Manufacturer,
+            Type = request.Type,
+            OperatingSystem = request.OperatingSystem,
+            OsVersion = request.OsVersion,
+            Processor = request.Processor,
+            RamAmount = request.RamAmount,
+            Description = request.Description
+        };
+
+    public static DeviceDto ToEditDeviceDto(this EditDeviceRequest request) =>
         new DeviceDto
         {
             Id = request.Identifier,

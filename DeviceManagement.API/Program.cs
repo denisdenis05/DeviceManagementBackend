@@ -27,11 +27,8 @@ webApplicationBuilder.Services.AddScoped(sp =>
 
 var webApplication = webApplicationBuilder.Build();
 
-if (webApplication.Environment.IsDevelopment())
-{
-    webApplication.UseSwagger();
-    webApplication.UseSwaggerUI();
-}
+webApplication.UseSwagger();
+webApplication.UseSwaggerUI();
 
 webApplication.UseHttpsRedirection();
 webApplication.UseAuthorization();
