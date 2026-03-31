@@ -8,6 +8,16 @@ webApplicationBuilder.Services.AddControllers();
 webApplicationBuilder.Services.AddEndpointsApiExplorer();
 webApplicationBuilder.Services.AddSwaggerGen();
 
+webApplicationBuilder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
+
 var connectionString = webApplicationBuilder.Configuration
     .GetConnectionString("DeviceManagementDatabase");
 
@@ -31,6 +41,7 @@ webApplication.UseSwagger();
 webApplication.UseSwaggerUI();
 
 webApplication.UseHttpsRedirection();
+webApplication.UseCors("AllowAll");
 webApplication.UseAuthorization();
 webApplication.MapControllers();
 
