@@ -1,6 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using DeviceManagement.Business.Services.Devices;
 using DeviceManagement.Business.Services.Auth;
+using DeviceManagement.Business.Services.AI;
 
 namespace DeviceManagement.Business.Services;
 
@@ -10,5 +11,8 @@ public static class ServiceExtensions
     {
         services.AddScoped<IDevicesService, DevicesService>();
         services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<IAiService, AiService>();
+        services.AddHttpClient();
     }
 }
+

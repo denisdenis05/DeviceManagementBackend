@@ -13,7 +13,9 @@ if (hasNoData) {
             OsVersion: "13.0", 
             Processor: "Snapdragon 8 Gen 2", 
             RamAmount: 8, 
-            Description: "Standard edition flagship" 
+            Description: "",
+            AssignedUserId: "",
+            AssignedUserEmail: ""
         },
         { 
             Name: "iPad Air", 
@@ -23,7 +25,9 @@ if (hasNoData) {
             OsVersion: "16.4", 
             Processor: "M1", 
             RamAmount: 8, 
-            Description: "Mid-tier tablet device" 
+            Description: "",
+            AssignedUserId: "",
+            AssignedUserEmail: ""
         }
     ]);
 }

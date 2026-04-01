@@ -8,7 +8,7 @@ if (!collectionExists) {
         validator: {
             $jsonSchema: {
                 bsonType: "object",
-                required: ["Name", "Manufacturer", "Type", "OperatingSystem", "OsVersion", "Processor", "RamAmount", "Description"],
+                required: ["Name", "Manufacturer", "Type", "OperatingSystem", "OsVersion", "Processor", "RamAmount"],
                 properties: {
                     Name: { bsonType: "string" },
                     Manufacturer: { bsonType: "string" },
@@ -17,7 +17,9 @@ if (!collectionExists) {
                     OsVersion: { bsonType: "string" },
                     Processor: { bsonType: "string" },
                     RamAmount: { bsonType: "int" },
-                    Description: { bsonType: "string" }
+                    Description: { bsonType: "string" },
+                    AssignedUserId: { bsonType: "string" },
+                    AssignedUserEmail: { bsonType: "string" }
                 }
             }
         }

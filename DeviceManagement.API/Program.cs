@@ -4,6 +4,7 @@ using DeviceManagement.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using DeviceManagement.BackgroundServices;
 
 var webApplicationBuilder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +33,7 @@ webApplicationBuilder.Services.AddSingleton<IMongoClient>(mongoClient);
 webApplicationBuilder.Services.AddScoped<IDevicesRepository, DeviceRepository>();
 webApplicationBuilder.Services.AddScoped<IAuthRepository, AuthRepository>();
 webApplicationBuilder.Services.AddApplicationServices();
+webApplicationBuilder.Services.AddHostedService<DeviceDescriptionGeneratorService>();
 
 var jwtSettings = webApplicationBuilder.Configuration.GetSection("JwtSettings");
 var key = Encoding.ASCII.GetBytes(jwtSettings["Key"]!);
