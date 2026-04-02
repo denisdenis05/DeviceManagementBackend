@@ -5,4 +5,5 @@ namespace DeviceManagement.Business.Services.AI;
 public interface IAiService
 {
     Task<string> GenerateDeviceDescriptionAsync(DeviceDto device);
+    Task<string> ChatWithRagAsync(string userMessage);
 }
