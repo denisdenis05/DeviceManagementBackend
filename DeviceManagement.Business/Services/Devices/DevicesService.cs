@@ -29,7 +29,23 @@ public class DevicesService : IDevicesService
 
     public async Task EditDeviceAsync(DeviceDto device)
     {
-        await _devicesRepository.UpdateDeviceAsync(device);
+        var existingDevice = await _devicesRepository.RetrieveDeviceByIdAsync(device.Id);
+        
+        if (existingDevice == null)
+        {
+            throw new Exception("Device not found.");
+        }
+
+        existingDevice.Name = device.Name;
+        existingDevice.Manufacturer = device.Manufacturer;
+        existingDevice.Type = device.Type;
+        existingDevice.OperatingSystem = device.OperatingSystem;
+        existingDevice.OsVersion = device.OsVersion;
+        existingDevice.Processor = device.Processor;
+        existingDevice.RamAmount = device.RamAmount;
+        existingDevice.Description = device.Description;
+
+        await _devicesRepository.UpdateDeviceAsync(existingDevice);
     }
 
     public async Task DeleteDeviceAsync(string identifier)

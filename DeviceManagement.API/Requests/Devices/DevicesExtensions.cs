@@ -21,7 +21,7 @@ public static class DevicesExtensions
     public static DeviceDto ToEditDeviceDto(this EditDeviceRequest request) =>
         new DeviceDto
         {
-            Id = request.Identifier,
+            Id = request.Id,
             Name = request.Name,
             Manufacturer = request.Manufacturer,
             Type = request.Type,

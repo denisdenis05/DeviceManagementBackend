@@ -2,7 +2,7 @@ namespace DeviceManagement.API.Requests.Devices;
 
 public class EditDeviceRequest
 {
-    public string Identifier { get; set; } = string.Empty;
+    public string Id { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
     public string Manufacturer { get; set; } = string.Empty;
     public string Type { get; set; } = string.Empty;
