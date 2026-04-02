@@ -64,7 +64,6 @@ var webApplication = webApplicationBuilder.Build();
 webApplication.UseSwagger();
 webApplication.UseSwaggerUI();
 
-webApplication.UseHttpsRedirection();
 webApplication.UseCors("AllowAll");
 webApplication.UseAuthentication();
 webApplication.UseAuthorization();
