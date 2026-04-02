@@ -39,7 +39,7 @@ public class DevicesExtensionsTests
     {
         var request = new EditDeviceRequest
         {
-            Identifier = "123",
+            Id = "123",
             Name = "Galaxy",
             Manufacturer = "Samsung",
             Type = "Phone",
@@ -52,7 +52,7 @@ public class DevicesExtensionsTests
 
         var dto = request.ToEditDeviceDto();
 
-        dto.Id.Should().Be(request.Identifier);
+        dto.Id.Should().Be(request.Id);
         dto.Name.Should().Be(request.Name);
     }
 

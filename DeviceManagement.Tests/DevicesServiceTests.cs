@@ -55,11 +55,35 @@ public class DevicesServiceTests
     [Fact]
     public async Task EditDeviceAsync_WhenCalled_ShouldDelegateToRepository()
     {
-        var deviceDto = new DeviceDto { Id = "1", Name = "Updated" };
+        const string deviceIdentifier = "1";
+        const string assignedUserId = "user123";
+        const string assignedUserEmail = "test@example.com";
+        
+        var existingDevice = new DeviceDto 
+        { 
+            Id = deviceIdentifier, 
+            Name = "Original", 
+            AssignedUserId = assignedUserId, 
+            AssignedUserEmail = assignedUserEmail 
+        };
+        
+        var updateRequest = new DeviceDto 
+        { 
+            Id = deviceIdentifier, 
+            Name = "Updated", 
+            Manufacturer = "New Manufacturer" 
+        };
 
-        await _devicesService.EditDeviceAsync(deviceDto);
+        _devicesRepositoryMock.Setup(repository => repository.RetrieveDeviceByIdAsync(deviceIdentifier))
+            .ReturnsAsync(existingDevice);
 
-        _devicesRepositoryMock.Verify(repository => repository.UpdateDeviceAsync(deviceDto), Times.Once);
+        await _devicesService.EditDeviceAsync(updateRequest);
+
+        existingDevice.Name.Should().Be(updateRequest.Name);
+        existingDevice.Manufacturer.Should().Be(updateRequest.Manufacturer);
+        existingDevice.AssignedUserId.Should().Be(assignedUserId);
+        existingDevice.AssignedUserEmail.Should().Be(assignedUserEmail);
+        _devicesRepositoryMock.Verify(repository => repository.UpdateDeviceAsync(existingDevice), Times.Once);
     }
 
     [Fact]

@@ -85,7 +85,7 @@ public class DevicesControllerTests
     [Fact]
     public async Task EditRequest_WhenServiceSucceeds_ShouldReturnOk()
     {
-        var editRequest = new EditDeviceRequest { Identifier = "1", Name = "Updated" };
+        var editRequest = new EditDeviceRequest { Id = "1", Name = "Updated" };
         _devicesServiceMock.Setup(service => service.EditDeviceAsync(It.IsAny<DeviceDto>()))
             .Returns(Task.CompletedTask);
 
